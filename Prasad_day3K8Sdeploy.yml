@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: prasad-space				# Namespace is getting created
+spec: {}
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: prasad5webapp
+  name: prasad5webapp
+  namespace: prasad-space				# Namespace is getting used
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prasad5webapp				# Real label of POD
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: prasad5webapp
+    spec:
+      containers:
+      - image: vnaprasad/microsoftapp:V005
+        name: microsoftapp
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: prasaday3s1
+  name: prasaday3s1
+  namespace: prasad-space					# Using Namespace
+spec:
+  ports:
+  - name: 1717-80
+    port: 1717
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: prasad5webapp					# Matching label of PODs
+  type: NodePort
+status:
+  loadBalancer: {}
