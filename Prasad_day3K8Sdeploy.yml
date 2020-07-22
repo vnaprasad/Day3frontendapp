@@ -29,6 +29,7 @@ spec:
       containers:
       - image: vnaprasad/microsoftapp:V005
         name: microsoftapp
+        imagePullPolicy: Always
         resources: {}
 status: {}
 ---
